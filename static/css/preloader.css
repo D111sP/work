@@ -1,0 +1,51 @@
+body {
+    margin: 0;
+}
+@media (max-width: 991.98px){
+.sidebar {
+    z-index: 1021;    
+}}
+
+@media (min-width: 200px){
+.sidebar-fixed .sidebar {
+    z-index: 1021;
+}}
+
+@media (min-width: 200px){
+.header-fixed .app-header {
+    z-index: 1021;
+}}
+
+@media (max-width: 991.98px){
+.app-header {
+    z-index: 1021;
+}}
+
+.preloader {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+    background-color: #21D4FD;
+    background-image: linear-gradient(19deg, #ffffff 0%, #ffffff 100%);
+    z-index: 1021;
+    color: #eee;
+  }
+
+
+  @keyframes preloader-rotate {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .loaded_hiding .preloader {
+    transition: 0.3s opacity;
+    opacity: 0;
+  }
+
+  .loaded .preloader {
+    display: none;
+  }

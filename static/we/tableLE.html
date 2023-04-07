@@ -1,0 +1,134 @@
+<form class="form-horizontal" style="margin-top: 1vh;">
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group" style="margin-bottom: 1px;">
+                <label for="UID" class="col-sm-5 control-label">УИД для Call-центра</label>
+                <div class="col-sm-7">
+                    <input type="text" autocomplete = "off" class="form-control" id="UID"  ng-model="searchOptions.UID" placeholder="УИД для Call-центра">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 1px;">
+                <label for="partner" class="col-sm-5 control-label">Контрагент</label>
+                <div class="col-sm-7">
+                    <input type="text" autocomplete = "off" class="form-control" id="partner"  ng-model="searchOptions.partner" placeholder="Контрагент">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 1px;">
+                <label for="INN" class="col-sm-5 control-label">ИНН контрагента</label>
+                <div class="col-sm-7">
+                    <input type="text" autocomplete = "off" class="form-control" id="INN"  ng-model="searchOptions.INN" placeholder="ИНН контрагента">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 1px;">
+                <label for="contractNum" class="col-sm-5 control-label">Номер договора</label>
+                <div class="col-sm-7">
+                    <input type="text" autocomplete = "off" class="form-control" id="contractNum"  ng-model="searchOptions.contractNum" placeholder="Номер договора">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 1px;">
+                <label for="contractNumSeal" class="col-sm-5 control-label">Номер договора для печати</label>
+                <div class="col-sm-7">
+                    <input type="text" autocomplete = "off" class="form-control" id="contractNumSeal"  ng-model="searchOptions.contractNumSeal" placeholder="Номер договора для печати">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom: 1px;">
+                <label for="phoneNumber" class="col-sm-5 control-label">Номер телефона</label>
+                <div class="col-sm-7">
+                    <input type="text" autocomplete = "off" class="form-control" id="phoneNumber"  ng-model="searchOptions.phoneNumber" placeholder="Номер телефона">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4" style="margin-top: 97px;">
+            <!--<span>
+                <button class="btn btn-default" type="submit" ng-click="searchAccounts_EL(searchOptions.UID, searchOptions.partner, searchOptions.INN, searchOptions.contractNum, searchOptions.contractNumSeal, searchOptions.phoneNumber )">
+                    <i  class="fa fa-spinner fa-spin" ng-class="{hidden: 0 === search_animation }"></i>
+                    <span class="glyphicon glyphicon-search" ng-class="{hidden: 1 === classValue }"  aria-hidden="true"></span>
+                    Поиск
+                </button>
+            </span> 
+            <span>
+                <button class="btn btn-default" type="button" ng-click="clear_search_window_EL()"> Было в комите showInfoNumber_EL = false; searchOptions.UID = null; searchOptions.partner = null; searchOptions.INN = null; searchOptions.contractNum = null; searchOptions.contractNumSeal = null; searchOptions.phoneNumber = null; +++ы
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button >
+            </span>-->
+            <div class="btn-group" role="group">
+                <button class="btn btn-default" type="submit" ng-click="searchAccounts_EL(searchOptions.UID, searchOptions.partner, searchOptions.INN, searchOptions.contractNum, searchOptions.contractNumSeal, searchOptions.phoneNumber, searchOptions.name_short)">
+                    <i  class="fa fa-spinner fa-spin" ng-class="{hidden: 0 === search_animation }"></i>
+                    <span class="glyphicon glyphicon-search" ng-class="{hidden: 1 === classValue }"  aria-hidden="true"></span>
+                    Поиск
+                </button>
+                <button class="btn btn-default" type="button" ng-click="clear_search_window_EL()"> <!--showInfoNumber_EL = false; searchOptions.UID = null; searchOptions.partner = null; searchOptions.INN = null; searchOptions.contractNum = null; searchOptions.contractNumSeal = null; searchOptions.phoneNumber = null; -->
+                    <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </button >
+            </div>
+        </div>
+    </div>
+</form>
+<div id="uh" ng-if="show_window_EL.showInfoNumber_EL">
+    <form class="form-horizontal">
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-md-5" style="padding-right: 2.5%; margin-left: 1.5%; padding-left: 2.5%;">
+                <div class="alert alert-info" role="alert">
+                    <div ng-click="closeAlert_EL()">
+                        <button type="button" class="close" style="top: 3px;"><span aria-hidden="true">&times;</span></button>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5">
+                            <strong>Звонит: </strong>{{abonentNumber_EL}} <br>
+                            {{infoBeLSNumber_EL }}
+                        </div>
+                        <!--<div class="col-md-6">
+                            <strong>ФИО: </strong>{{abonentFio_EL | notInfoCall}}
+                            <span class="glyphicon glyphicon-ok-circle" aria-hidden="true" ng-class="{hidden: booleanConfirm_EL == 1}"></span>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div ng-if="showTable_EL">
+    Страница {{numberPage_EL + 1}} , всего страниц {{totalPage_EL}}
+
+    <div class="col-lg-3" style="margin-top: 20px; float: none; margin-bottom: 20px;">
+        <div class="input-group">
+          <input  placeholder="Отбор по состоянию договора" type="text" ng-model="input_search.state" class="form-control width200" type="text" class="form-control">
+          <span class="input-group-btn">
+            <button class="btn btn-default" type="button"  ng-click="input_search.state = str_empty">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+            </button>
+          </span>
+        </div>
+    </div>
+    
+    <table class="table">
+        <thead class="ant-table-thead">
+        <tr>
+            <th class="ant-table-cell font-weight-normal">Состояние</th>
+            <th class="ant-table-cell font-weight-normal">Номер договора</th>
+            <th class="ant-table-cell font-weight-normal">Номер договора для печати</th>
+            <th class="ant-table-cell">Контрагент</th>
+            <th class="ant-table-cell">Тип договора</th>
+            <th class="ant-table-cell">Подразделение</th>
+
+
+        </tr>
+        </thead>
+        <tbody class="ant-table-tbody">
+        <tr ng-repeat="account_el in accounts_EL | filter:input_search"  ng-class="{selected: account_el.obj_id === obj_id_EL} " ng-dblclick="openModalEl(account_el)" data-row-key="uid10" data-easy-toggle="#openModalEl" data-easy-class="open" ng-click="selectedColor_EL(account_el.obj_id)">
+            <td class="ant-table-cell font-weight-normal">{{account_el.state}}</td>
+            <td class="ant-table-cell font-weight-normal">{{account_el.number}}</td>
+            <td class="ant-table-cell font-weight-normal">{{account_el.number_print}}</td>
+            <td class="ant-table-cell">{{account_el.name}}</td>
+            <td class="ant-table-cell font-weight-normal">{{account_el.contract_type}}</td>
+            <td class="ant-table-cell font-weight-normal">{{account_el.division}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <ul class="pager">
+        <li class="previous" ng-class="{hidden: 0 == numberPage_EL}" ng-click="down_EL(searchOptions.UID, searchOptions.partner ,searchOptions.INN, searchOptions.contractNum, searchOptions.contractNumSeal, searchOptions.phoneNumber)"><a><span aria-hidden="true">&larr;</span> Назад</a></li>
+        <li class="next" ng-class="{hidden: totalPage_EL == numberPage_EL+ 1}" ng-click="up_EL(searchOptions.UID, searchOptions.partner ,searchOptions.INN, searchOptions.contractNum, searchOptions.contractNumSeal, searchOptions.phoneNumber)"><a>Вперед <span aria-hidden="true">&rarr;</span></a></li>
+    </ul>
+</div>

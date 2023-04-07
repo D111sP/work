@@ -1,0 +1,205 @@
+p{
+    line-height: 16px;
+}
+
+.selected{ 
+    background: rgba(133, 180, 254, 0.751);
+};
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 16px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+}
+
+.button2 {
+    background-color: white; 
+    color: black; 
+    border: 2px solid #008CBA;
+}
+
+.button2:hover {
+    background-color: #008CBA;
+    color: white;
+}
+
+.right_btn {
+    float: right;
+}
+.box div { 
+    margin-left: 10px; 
+    display:inline-table; 
+    padding-bottom: 10px;
+}
+
+.form-control{
+    margin: 3%;
+    width: 100%;
+    display: inline;
+    margin-left: 0%;
+    margin-top: 0%;
+    margin-bottom: 1%;
+}
+
+.width1{
+    width: 70%;
+}
+.width80{
+    width: 80%;
+    margin: 0%;
+}
+
+/*.nav-tabs {
+    border-bottom: 0px solid #ddd;
+};*/
+
+.tab-content {
+    margin-top: -1px;
+    background: #fff;
+}
+
+input[type=search]::-webkit-search-cancel-button {
+    -webkit-appearance: searchfield-cancel-button;
+}
+
+html {
+    overflow: hidden; 
+}
+
+.callNumber{
+    background: rgb(255, 255, 255);
+    border: 1px solid red;
+}
+
+.form-group {
+     margin-bottom: 1px; 
+}
+
+.red{
+    background: rgb(255, 200, 207);
+    color: rgb(0, 0, 0) !important;
+    padding: 3px;
+    border-radius: 7px;
+}
+
+.white{
+    background: white;
+    color: black;
+}
+.yellow{
+    background: rgb(255, 236, 157);
+    color: rgb(0, 0, 0) !important;
+    padding: 3px;
+    border-radius: 7px;
+}
+.redinput{
+    border: 1px solid red !important;
+    border-radius: 4px;
+}  
+
+.colorbacktd {
+    background: rgb(149, 184, 236);
+
+}
+
+.greenAverage{
+    background: rgb(199, 240, 207);
+    color: rgb(0, 0, 0) !important;
+    padding: 3px;
+    border-radius: 7px;
+}
+
+.yellowAverage{
+    background: rgb(255, 236, 157);
+    color: rgb(0, 0, 0) !important;
+    padding: 3px;
+    border-radius: 7px;
+}
+
+.redAverage{
+    background: rgb(255, 200, 207);
+    color: rgb(0, 0, 0) !important;
+    padding: 3px;
+    border-radius: 7px;
+}
+.text-centr-table-thead{
+    vertical-align: top !important; 
+    text-align: center !important;
+}
+.text-centr-table-tbody{
+    vertical-align: middle !important; 
+    text-align: center !important;
+}
+.textcols{
+    white-space: nowrap;
+    width: 60%;
+}
+.colleft{
+    white-space: normal;
+    display: inline-block;
+    padding-right: 30px;
+    vertical-align: top;
+}
+.colright{
+    white-space: normal;
+    display: inline-block;
+
+    vertical-align: top;
+}
+
+.blockadress{
+    color: rgb(76, 139, 233); 
+}
+
+.blockadress:hover{
+    color: rgb(18, 105, 235); 
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Стили для фона модального окна */
+.modal-background {
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Стили для контента модального окна */
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    max-width: 500px;
+    text-align: center;
+  }
+  
+  /* Стили для кнопки */
+  .modal-content a {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+  }

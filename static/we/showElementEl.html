@@ -1,0 +1,178 @@
+<div class="box">
+    <div>
+        <a ng-click="backEl()" class="btn btn-default" role="button">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+            <strong>Назад</strong>
+        </a>
+    </div> 
+    <div>
+        <a ng-click="updateEl()" class="btn btn-default" role="button">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            <strong>Обновить</strong>
+        </a>
+    </div> 
+
+    <div class="right_btn">
+        <div>
+            <a ng-click="openNewWindowAIS_EL(info_account_EL)" class="btn btn-default" role="button">
+                <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                <strong>Создать обращение в АИС Восток</strong>
+            </a> 
+            <div ng-if="showInfoOpenAIS_EL" class="alert alert-info alert-dismissible" style="position: relative; margin: 10px 0 0 0; display: flex; padding: 0;" role="alert">
+                <div style="padding: 10px 0; margin: 0 0 0 10px;">{{InfoOpenAIS_EL}} </div>
+                <a style="position: absolute; right: 5px; font-size: 25px;" ng-click="closeInfoOpenAIS_EL()"><span aria-hidden="true">&times;</span></a>
+            </div>
+        </div>
+        <div>
+            <a ng-click="openNewWindowGIS_EL(info_account_EL)" class="btn btn-default" role="button">
+                <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                <strong>Заявки по ПУ в ГИС Энергоучет ЮЛ</strong>
+            </a> 
+            <div ng-if="showInfoOpenGIS_EL" class="alert alert-info alert-dismissible" style="position: relative; margin: 10px 0 0 0; display: flex; padding: 0;" role="alert">
+                <div style="padding: 10px 0; margin: 0 0 0 10px;">{{InfoOpenGIS_EL}}</div>
+                <a style="position: absolute; right: 5px; font-size: 25px;" ng-click="closeInfoOpenGIS_EL()"><span aria-hidden="true">&times;</span></a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="textcols">
+    <div class="colleft">
+        <p>Договор: {{info_account_EL.number}}</p>
+        <p>Номер договора для печати: {{info_account_EL.number_print}}</p>
+        <p>Подразделение: {{info_account_EL.division}}</p>
+        <p>Тип договора: {{info_account_EL.contract_type}}</p>
+        <p>Состояние: {{info_account_EL.state}}</p>
+        <p>Дата начала: {{info_account_EL.startDate | dataEdit}}</p>
+        <p>Дата окончания: {{info_account_EL.endDate | dataEdit}}</p>
+    </div>
+    <div class="colright">
+        <p>Контрагент (полное): {{info_account_EL.name_full}}</p>
+        <p>Контрагент: {{info_account_EL.name}}</p>
+        <p>ИНН контрагента: {{info_account_EL.inn}}</p>
+        <p>КПП контрагента: {{info_account_EL.kpp}}</p>
+        <p>Звонок с номера: {{info_account_EL.number_call_EL}}</p>
+    </div>
+</div>
+
+<div ng-if="infoCorrectValue_form_red_EL" class="alert alert-danger alert-dismissible" role="alert" ng-init="closeinfoErrorValue_red_EL()">
+    <button style="position: absolute; top: 0; right: 0;" type="button" ng-click="showinfoErrorValue_red_EL()" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{infoCorrectValue_form_EL}}
+</div>
+
+<div ng-repeat="info_post_data in info_post_datas" ng-init="close_cloese_info_post_data()" ng-if="show_info_post_data" class="alert alert-warning alert-dismissible" role="alert">
+    <button style="position: absolute; top: 0; right: 0;" type="button" ng-click="show_cloese_info_post_data()" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    {{info_post_data.Description}}
+</div>
+
+<div ng-if="show_info_post_data_success" class="alert alert-success alert-dismissible" role="alert" ng-init="hideNotification()">
+    <button type="button" ng-click="closeinfoSuccessValue_EL()" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span></button>
+    Показания АИС переданы успешно.
+</div>
+
+<ul class="nav nav-tabs" role="tablist" style="padding-left: 10px;">
+    <li class="active"><a href="#PP"  onclick="return false" role="tab" data-toggle="tab">Передача показаний</a></li>
+</ul>
+
+<div class="col-lg-6" style="margin-top: 20px; float: none; margin-bottom: 20px;">
+    <div class="input-group">
+      <input  placeholder="Поиск по адресу объекта" type="text" ng-model="input_search.ObjectAddress" class="form-control width200" type="text" class="form-control">
+      <span class="input-group-btn">
+        <button class="btn btn-default" type="button"  ng-click="input_search.ObjectAddress = str_empty">
+            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+        </button>
+      </span>
+    </div>
+</div>
+
+<div role="tabpanel" class="tab-pane active" id="PP">
+    <div ng-show="flag_show_load">
+        <i style="margin-left: 45%;"  class="fa fa-spinner fa-spin fa-6x"></i>
+    </div>
+    <div style="margin-bottom: 20px;" ng-repeat="info_account in info_accounts | filter : input_search">
+        <div class="blockadress" ng-click="changeStatus(info_account)">
+            <p>Объект: {{info_account.ObjectName}}</p>
+            <p>Адрес объекта: {{info_account.ObjectAddress}}<img ng-src="{{check_fullness(info_account.PU)}}" style="margin-bottom: 5px; width: 20px; margin-left: 10px;" width="auto" height="auto"></p> 
+        </div>
+        <div ng-show="info_account.statusShow" class="tab-content" style="padding-top: 0;">
+            <div class="tab-pane fade in active" id="met">
+                <table class="table" style="width:100%">
+                    <col style="width:5%">
+                    <thead class="ant-table-thead">
+                        <tr>
+                            <th class="text-centr-table-thead">Номенклатура</th>
+                            <th class="text-centr-table-thead">Номер ПУ</th>
+                            <th class="text-centr-table-thead">Признак АСКУЭ </th>
+                            <th class="text-centr-table-thead">Шкала ПУ </th>
+                            <th class="text-centr-table-thead">Место установки ПУ</th>
+                            <th class="text-centr-table-thead">Тариф</th>
+                            <th class="text-centr-table-thead">КТТ</th>
+                            <th class="text-centr-table-thead">Значность</th>
+                            <th class="text-centr-table-thead">Дата следующей поверки</th>
+                            <th class="text-centr-table-thead">Дата передачи последнего показания</th>
+                            <th class="text-centr-table-thead">Последнее показание</th>
+                            <th class="text-centr-table-thead">Расход</th>
+                            <th class="text-centr-table-thead">Новое показание </th>
+                            <th class="text-centr-table-thead">Переход через 0</th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="pu in info_account.PU">
+                        <tr ng-repeat="scale in pu.Scale">
+                            <td class="text-centr-table-tbody">{{pu.ServiceName}}</td>
+                            <td class="text-centr-table-tbody">{{pu.NumberPU}}</td>
+                            <td class="text-centr-table-tbody"><img ng-class="{hidden: pu.statusASU == 0 }" ng-src="/stilLIB/stilTable/photo/green.png" style="margin-bottom: 5px; width: 20px;" width="auto" height="auto"></td>
+                            <td class="text-centr-table-tbody">{{scale.ScaleName}}</td>
+                            <td class="text-centr-table-tbody">{{pu.PlaceInstallationPU}}</td>
+                            <td class="text-centr-table-tbody">{{scale.Price}}</td>
+                            <td class="text-centr-table-tbody">{{pu.KTT}}</td>
+                            <td class="text-centr-table-tbody">{{scale.ScaleSignificance}}({{scale.ScaleAccuracy}})</td>
+                            <td class="text-centr-table-tbody">
+                                <a data-toggle="tooltip" title="{{NameBack_data_El( pu.DateNextVerifiedPU, scale.IndicationDate)}}" ng-class="colorBack_data_El( pu.DateNextVerifiedPU, scale.IndicationDate)">{{ pu.DateNextVerifiedPU | dataEdit}}</a>
+                            </td>
+                            <td class="text-centr-table-tbody">{{scale.IndicationDate | dataEdit}}</td>
+                            <td class="text-centr-table-tbody">{{scale.Indication | comma}}</td>
+                            <td class="text-centr-table-tbody">
+                                <a data-toggle="tooltip"  
+                                data-original-title="{{nameBack_Consumption_EL(scale)}}" 
+                                ng-class="colorBack_Consumption_EL(scale)">
+                                {{consumption | consumption_EL:scale.NewIndication:scale.Indication:scale.zeroCrossing:scale.ScaleSignificance:scale.ScaleAccuracy}}
+                            </a>
+                            </td>
+                            <td class="text-centr-table-tbody">
+                                <input number-input indication="{{scale.Indication}}" ficance="{{scale.ScaleSignificance}}" accuracy="{{scale.ScaleAccuracy}}"
+                                ng-class="tittleNameInputRed_El(scale.NewIndication, scale.Indication, scale.zeroCrossing)"
+                                type="text" class="form-control width80" style="padding: 0px; text-align: center;" ng-model="scale.NewIndication">
+                                <br><span style="color: red; font-size: 10px;"> {{writeError | writeError:scale.NewIndication:scale.Indication:scale.zeroCrossing}}</span>
+                            </td>
+                            <td class="text-centr-table-tbody">
+                                <input ng-model="scale.zeroCrossing" style="margin-top: -5px;"  type="checkbox" class="form-check-input" ng-true-value="1" ng-false-value="0">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="box" ng-class="{hidden: 0 == show_btn_ping}">
+    <div class="right_btn">
+        <a ng-click="post_info_accounts(info_accounts, info_account_EL.number_call_EL)" class="btn btn-default" role="button">
+            <span  ng-show="!flag_show_load_post" class="glyphicon glyphicon-share" ng-class="" aria-hidden="true"></span>
+            <i class="fa fa-spinner fa-spin" ng-show="flag_show_load_post"></i>
+            <strong>Передать показания</strong>
+        </a>
+    </div>
+</div>
+
+<div ng-repeat="info_Ping in info_Pings" style="margin-left: 15px;">
+    <a ng-mouseenter="muoseEnter(info_Ping.name)" ng-mouseleave="muoseLeave()"><img ng-show="info_Ping.imgBase" ng-src="{{info_Ping.imgBase}}" style="margin-bottom: 5px; margin-right: 5px; width: 20px;" width="auto" height="auto">{{info_Ping.name}}{{info_Ping.size}}</a>
+</div>
+
+<script>
+    $(function () {
+         $("body").tooltip({
+             selector: '[data-toggle="tooltip"]',
+             container: 'body'
+         });
+     })
+</script>

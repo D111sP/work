@@ -1,0 +1,258 @@
+<div class="box">
+    <div>
+        <a ng-click="back()" class="btn btn-default" role="button">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+            <strong>Назад</strong>
+        </a>
+    </div> 
+    <div>
+        <a ng-click="update()" class="btn btn-default" role="button">
+            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+            <strong>Обновить</strong>
+        </a>
+    </div> 
+    <div class="right_btn">
+        <div>
+            <a ng-click="openNewWindowAIS()" class="btn btn-default" role="button">
+                <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                <strong>Создать обращение в АИС Восток</strong>
+            </a> 
+            <div ng-if="showInfoOpenAIS" class="alert alert-info alert-dismissible" style="position: relative; margin: 10px 0 0 0; display: flex; padding: 0;" role="alert">
+                <div style="padding: 10px 0; margin: 0 0 0 10px;">{{InfoOpenAIS}} </div>
+                <a style="position: absolute; right: 5px; font-size: 25px;" ng-click="closeInfoOpenAIS()"><span aria-hidden="true">&times;</span></a>
+            </div>
+        </div>
+        <div> 
+            <a ng-click="openNewWindowGIS()" class="btn btn-default" role="button">
+                <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                <strong>Заявки по ПУ в ГИС Энергоучет ФЛ</strong>
+            </a>
+            <div ng-if="showInfoOpenGIS" class="alert alert-info alert-dismissible" style="position: relative; margin: 10px 0 0 0; display: flex; padding: 0;" role="alert">
+                <div style="padding: 10px 0; margin: 0 0 0 10px;">{{InfoOpenGIS}} </div>
+                <a style="position: absolute; right: 5px; font-size: 25px;" ng-click="closeInfoOpenGIS()"><span aria-hidden="true">&times;</span></a>
+            </div>
+        </div>
+        <div> 
+            <a ng-click="openNewWindowPIR()" class="btn btn-default" role="button">
+                <span class="glyphicon glyphicon-share" aria-hidden="true"></span>
+                <strong>Поиск ИД в ПК Пирамида</strong>
+            </a>
+            <div ng-if="showInfoOpenPIR" class="alert alert-info alert-dismissible" style="position: relative; margin: 10px 0 0 0; display: flex; padding: 0;" role="alert">
+                <div style="padding: 10px 0; margin: 0 0 0 10px;">{{InfoOpenPIR}} </div>
+                <a style="position: absolute; right: 5px; font-size: 25px;" ng-click="closeInfoOpenPIR()"><span aria-hidden="true">&times;</span></a>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="right_btn">
+        <a ng-click="writeDown(infoObj,metObj)" class="btn btn-default" role="button">
+            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+            <strong>Записать</strong>
+        </a>
+    </div>-->
+</div>
+<div style="line-height: 0.8;">
+    <div ng-repeat="sistemObj in showInfoAISTRIC">
+        <P>{{sistemObj.numberLs}} {{sistemObj.nameHooks}}</P>
+    </div>
+    <p>{{formInfoBpname}} {{formInfoBplsnumber}}</p>
+    <p>{{account.address}}</p>
+    <p>{{account.fio}}</p>
+    <p>Звонок с номера:{{account.numberPhone}}</p>
+</div>
+
+<div class="tabs"> 
+
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#met" data-toggle="tab"><strong>Передача показаний</strong></a></li>
+       <!--<li><a href="#info" data-toggle="tab">Информация</a></li>-->
+    </ul>
+
+    <div ng-if="infoCorrectValue_form_red" class="alert alert-danger alert-dismissible" role="alert">
+        <button style="position: absolute; top: 0; right: 0;" type="button" ng-click="showinfoErrorValue_red()" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{infoCorrectValue_form}}
+    </div>
+
+    <div ng-repeat="valueInfoError in valueInfoErrors track by $index" ng-if="infoErrorValue" class="alert alert-warning alert-dismissible" role="alert">
+        <button style="position: absolute; top: 0; right: 0;" type="button" ng-click="showinfoErrorValue()" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        {{valueInfoError}}
+    </div>
+
+    <div ng-if="infoSuccessValueAIS" class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" ng-click="showinfoSuccessValueAIS()" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span></button>
+        Показания АИС переданы успешно.
+    </div>
+
+    <div ng-if="infoErrorValueAIS" class="alert alert-warning alert-dismissible" role="alert">
+        <button style="position: absolute; top: 0; right: 0;" type="button" ng-click="showinfoErrorValueAIS()" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span></button>
+        Информация о передачи показаний АИС.
+        <div ng-repeat="error in errorsAIS_form track by $index">{{error}}</div>
+    </div>
+
+    <div ng-if="infoErrorValueTRIC" class="alert alert-warning alert-dismissible" role="alert">
+        <button style="position: absolute; top: 0; right: 0;" type="button" ng-click="showinfoErrorValueTRIC()" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span></button>
+        Информация о передачи показаний ТРИЦ.
+        <div ng-repeat="error in errorsTRIC_form">{{error}}</div>
+    </div>
+    <div ng-if="infoErrorValueBp" class="alert alert-warning alert-dismissible" role="alert">
+        <button style="position: absolute; top: 0; right: 0;" type="button" ng-click="showinfoErrorValueBp()" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span></button>
+        Информация о передачи показаний БП.<br>
+        {{infoAnswerBp}}
+    </div>
+    <div ng-if="infoSuccessValueBp" class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" ng-click="showinfoSuccessValueBp()" class="close" data-dismiss="alert" ><span aria-hidden="true">&times;</span></button>
+        Показания БП переданы успешно.
+    </div>
+
+    <div class="tab-content" style="padding-top: 0;">
+        <div class="tab-pane fade in active" id="met">
+            <table class="table" style="width:100%">
+                <col style="width:5%">
+                <thead class="ant-table-thead">
+                    <tr >
+                        <th class="text-centr-table-thead">Услуга</th>
+                        <th class="text-centr-table-thead">Номер ПУ</th>
+                        <th class="text-centr-table-thead">АСКУЭ</th>
+                        <th class="text-centr-table-thead">Шкала</th>
+                        <th class="text-centr-table-thead">Место установки ПУ</th>
+                        <th class="text-centr-table-thead">Тариф</th>
+                        <th class="text-centr-table-thead">Значность</th>
+                        <th class="text-centr-table-thead">Дата след.поверки</th>
+                        <th class="text-centr-table-thead">Дата последней передачи</th>
+                        <th class="text-centr-table-thead">Последнее показание</th>
+                        <th class="text-centr-table-thead">Расход</th>
+                        <th class="text-centr-table-thead">Новое показание</th>
+                        <th class="text-centr-table-thead">Сумма</th>
+                        <th class="text-centr-table-thead">Переход через 0</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="met in metObjs" ng-class="{'colorbacktd': met.nameAIS == nameBase}">
+                        <td class="text-centr-table-tbody">{{ met.ServiceName}}</td>
+                        <td class="text-centr-table-tbody">{{ met.NumberPU | NumberOrModel:met.ModelTric }}</td>
+                        <td class="text-centr-table-tbody"><img ng-src="{{connectedASUFun(met.asuis)}}" style="margin-bottom: 5px; width: 20px;" width="auto" height="auto"></td>
+                        <td class="text-centr-table-tbody">{{ met.ScaleName }}</td>
+                        <td class="text-centr-table-tbody">{{ met.PlaceInstallation }}</td>
+                        <td class="text-centr-table-tbody">{{ met.Price | comma }}</td>
+                        <td class="text-centr-table-tbody">{{markNumber | markNumber:met.ScaleSignificance:met.ScaleAccuracy}}</td>
+                        <td class="text-centr-table-tbody">
+                        
+                            <a data-toggle="tooltip" title="{{colorBackName( met.DateNextVerifiedPU, met.IndicationDate)}}" ng-class="colorBack( met.DateNextVerifiedPU, met.IndicationDate)">{{ met.DateNextVerifiedPU | dataEdit}}</a>
+
+                        </td>
+                        <td class="text-centr-table-tbody">{{ met.IndicationDate | dataEdit}}</td>
+                        <td class="text-centr-table-tbody">{{ met.Indication | comma }}</td>
+                        <td class="text-centr-table-tbody">
+                            <a data-toggle="tooltip"  
+                                data-original-title="{{colorBackName_Consumption( met.DateNextVerifiedPU, met.IndicationDate, met.Indication, met.MyvalueNew, met.AverageConsumption, met.MyzeroCrossing, met.ScaleSignificance)}}" 
+                                ng-class="colorBack_Consumption(met.DateNextVerifiedPU, met.IndicationDate, met.Indication, met.MyvalueNew, met.AverageConsumption, met.MyzeroCrossing, met.ScaleSignificance)">
+                                {{consumption | consumption:met.MyvalueNew:met.Indication:met.MyzeroCrossing:met.ScaleSignificance:met.ScaleAccuracy:met.nameAIS:met.unit}}
+                            </a>
+                        </td>
+                        <td class="text-centr-table-tbody">
+                            <input number-input indication="{{met.Indication}}" ficance="{{met.ScaleSignificance}}" accuracy="{{met.ScaleAccuracy}}" style="padding: 0px; text-align: center;" 
+                                ng-class="tittleNameInputRed(met.MyvalueNew, met.Indication, met.MyzeroCrossing)" 
+                                type="text" class="form-control width80" ng-model="met.MyvalueNew">
+                            <br><span style="color: red; font-size: 10px;"> {{writeError | writeError:met.MyvalueNew:met.Indication:met.MyzeroCrossing}}</span>
+                        </td>
+                        <td class="text-centr-table-tbody">{{ summa | summa:met.MyvalueNew:met.Indication:met.Price:met.MyzeroCrossing:met.ScaleSignificance:met.ScaleAccuracy }}</td>
+                        <td class="text-centr-table-tbody">
+                            <input style="margin-top: -5px;"  type="checkbox" class="form-check-input" ng-disabled="{{disabledCheckBox(met.nameAIS)}}" ng-model="met.MyzeroCrossing" ng-true-value="1" ng-false-value="0">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="tab-pane fade" id="info">
+
+            <form class="left-space">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="fio1">ФИО1</label>
+                            <input type="text" class="form-control width1" id="fio1" ng-model="infoObj.fio1" >
+                        </div>
+                        <div class="form-group">
+                            <label for="fio2">ФИО2</label>
+                            <input type="text" class="form-control width1" id="fio2" ng-model="infoObj.fio2" >
+                        </div>
+                        <div class="form-group">
+                            <label for="fio1">ФИО3</label>
+                            <input type="text" class="form-control width1" id="fio3" ng-model="infoObj.fio3" >
+                        </div>
+                        <div class="form-group">
+                            <label for="fio4">ФИО4</label>
+                            <input type="text" class="form-control width1" id="fio4" ng-model="infoObj.fio4" >
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="number1">Номер1</label>
+                            <input type="text" class="form-control width1" id="number1" ng-model="infoObj.home_phone" >
+                        </div>
+                        <div class="form-group">
+                            <label for="number2">Номер2</label>
+                            <input type="text" class="form-control width1" id="number2" ng-model="infoObj.home_phone2" >
+                        </div>
+                        <div class="form-group">
+                            <label for="number3">Номер3</label>
+                            <input type="text" class="form-control width1" id="number3" ng-model="infoObj.home_phone3" >
+                        </div>
+                        <div class="form-group">
+                            <label for="number4">Номер4</label>
+                            <input type="text" class="form-control width1" id="number4" ng-model="infoObj.mobile_phone" >
+                        </div>
+                    </div>  
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="coment">Коментарий</label>
+                            <input type="text" class="form-control width80" id="coment" ng-model="infoObj.comment" >
+                        </div>
+                    </div>
+                </div>
+                </form> 
+                
+        </div>
+    </div>
+</div> 
+<div ng-if="showDopInfoAISS" style="width: 450px; height:400px; background-color: rgb(255, 255, 255); margin: 0 0 20px auto; border: 2px solid rgb(206, 199, 199); overflow-y: auto;">
+    <div>
+        <strong><p style="text-align: center;">Задолжность по услугам</p></strong>
+        <table class="table">
+            <tbody>
+                <tr ng-repeat="dopInfoAIS in dopInfoAISS">
+                    <td style="vertical-align: middle;" >{{dopInfoAIS.ServiceName}}</td>
+                    <td style="vertical-align: middle; text-align: center;" >{{dopInfoAIS.BalanceMain + dopInfoAIS.BalanceTheft + dopInfoAIS.BalancePenalties + dopInfoAIS.BalanceOther | SpaceThousands}}</td>
+                </tr>
+            </tbody> 
+        </table>
+        <strong><p style="text-align: right;">{{dopInfoAISBalance | SpaceThousands}}</p></strong>
+    </div>   
+</div>
+<div ng-if="flagShowTable">
+    <i style="margin-left: 45%;"  class="fa fa-spinner fa-spin fa-6x"></i>
+</div>
+<div class="box">
+    <div class="right_btn">
+        <a ng-click="writeDown(infoObj,metObjs)" class="btn btn-default" role="button">
+            <span class="glyphicon glyphicon-share" ng-class="{hidden: 1 == showWriteMet }" aria-hidden="true"></span>
+            <i  class="fa fa-spinner fa-spin" ng-class="{hidden: 0 == showWriteMet }"></i>
+            <strong>Передать показания</strong>
+        </a>
+    </div>
+</div>
+
+<div ng-repeat="sistemObj_img in showInfoAISTRIC" style="margin-left: 15px;">
+    <a ng-mouseenter="muoseEnter(sistemObj_img.name)" ng-mouseleave="muoseLeave()"><img ng-show="sistemObj_img.imgBase" ng-src="{{sistemObj_img.imgBase}}" style="margin-bottom: 5px; width: 20px; margin-right: 5px;" width="auto" height="auto">{{sistemObj_img.name}}{{sistemObj_img.size}}</a>
+</div>
+
+<script>
+   $(function () {
+        $("body").tooltip({
+            selector: '[data-toggle="tooltip"]',
+            container: 'body'
+        });
+    })
+ </script>

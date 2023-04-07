@@ -1,0 +1,19 @@
+<div class="box">
+    <div>
+        <a ng-click="back_infoCall()" class="btn btn-default" role="button">
+            <span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span>
+            <strong>Назад</strong>
+        </a>
+    </div> 
+</div>
+
+<div>
+    <p>Номер: <a style="color: rgb(0, 0, 0);" ng-click="foundAccountByNumber(historyCallInfo.number)" href="">{{historyCallInfonumber}}</a></p>
+    <p>Звонил: {{historyCallInfostartCallDate | dataEdit_call_history}} </p>
+    <p>Звонок был принят: {{historyCallInfoincomingCallDate | dataEdit_call_history}}</p>
+    <p>Оператор: {{historyCallInfofio}}</p>
+    <p>Общая ссылка: <a ng-href="{{historyCallPlay}}">{{linkInfinity}}</a></p>
+    <!--<p>Аудиозапись разговора: <a href="{{historyCallInfoCall}}" target="_blank">Скачать запись звонка</a></p>-->
+    <!--<p>Прослушать: <a href="\listen_call.html" target="_blank">Слушать запись звонка</a></p>-->
+    <audio controls id="mp3_id" ng-src="{{historyCall_Audio_Player}}"></audio> 
+</div>
